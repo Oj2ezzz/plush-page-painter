@@ -54,9 +54,10 @@ export default {
 				},
 				luxury: {
 					gold: 'hsl(var(--luxury-gold))',
+					'gold-light': 'hsl(var(--luxury-gold-light))',
 					'gold-dark': 'hsl(var(--luxury-gold-dark))',
-					'glass-overlay': 'hsl(var(--glass-overlay))',
-					'glass-border': 'hsl(var(--glass-border))'
+					'glass-overlay': 'hsl(var(--luxury-glass-overlay))',
+					'glass-border': 'hsl(var(--luxury-glass-border))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
