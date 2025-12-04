@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import solidLadderPull from "/lovable-uploads/f175d006-59a9-493d-9e7f-f5c9e0b4d1f6.png";
+import solidLadderPull from "@/assets/solid-ladder-pull.jpeg";
 import hollowLadderPull from "/lovable-uploads/1096363a-b088-4ecb-8fd9-32a889a3fbe5.png";
 import nonLockingLadderPull from "/lovable-uploads/8896ac0f-490c-40fd-b3fe-9337ab0e7e25.png";
 import lockingLadderPullLever from "/lovable-uploads/412b9021-2316-4ac6-9831-c5d4ffb91bdc.png";
