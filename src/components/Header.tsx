@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import mmrLogo from "@/assets/mmr-logo-new.jpeg";
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,7 +42,7 @@ const Header = () => {
             {/* Logo */}
             <div className="flex items-center space-x-4">
               <Link to="/" onClick={closeMobileMenu} className="hover-scale transition-transform duration-300">
-                <img src="/lovable-uploads/2f935e40-4341-45ce-ac1a-7d9932defd80.png" alt="MMR Hardware Logo" className={`w-auto drop-shadow-lg transition-all duration-700 ease-out ${isScrolled ? 'h-20 scale-90' : 'h-32 scale-100'}`} />
+                <img src={mmrLogo} alt="MMR Hardware Logo" className={`w-auto drop-shadow-lg transition-all duration-700 ease-out ${isScrolled ? 'h-20 scale-90' : 'h-32 scale-100'}`} />
               </Link>
             </div>
 
@@ -108,7 +109,7 @@ const Header = () => {
             <div className="flex flex-col h-full pt-20 px-6">
               {/* Logo */}
               <div className="flex justify-center mb-8">
-                <img src="/lovable-uploads/2f935e40-4341-45ce-ac1a-7d9932defd80.png" alt="MMR Hardware Logo" className="h-24 w-auto" />
+                <img src={mmrLogo} alt="MMR Hardware Logo" className="h-24 w-auto" />
               </div>
               {/* Navigation Links */}
               <nav className="flex flex-col space-y-6 flex-1">
