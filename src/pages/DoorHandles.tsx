@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import solidLadderPull from "@/assets/solid-ladder-pull.jpeg";
 import hollowLadderPull from "@/assets/hollow-ladder-pull.jpeg";
-import nonLockingLadderPull from "/lovable-uploads/8896ac0f-490c-40fd-b3fe-9337ab0e7e25.png";
+import nonLockingLadderPull from "@/assets/non-locking-ladder-pull.jpeg";
 import lockingLadderPullLever from "/lovable-uploads/412b9021-2316-4ac6-9831-c5d4ffb91bdc.png";
 import lockingLadderPullThumb from "/lovable-uploads/3d557921-a0c4-433e-a7a3-93904f7ba556.png";
 
