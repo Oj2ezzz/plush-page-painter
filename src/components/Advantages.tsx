@@ -12,7 +12,7 @@ const Advantages = () => {
     },
     {
       title: "Residential Hardware Solutions",
-      description: "Function meets beauty. Explore our collection of modern, sleek, and reliable hardware tailored for homes, condos, and multi-residential projects. We help turn everyday spaces into something exceptional.",
+      description: "Built for constant use and styled with lasting sophistication. From office interiors to industrial applications, our hardware outperforms rigorous standards and elevates every environment it's installed in.",
       icon: Home
     },
     {
