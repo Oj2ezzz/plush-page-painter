@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import discoveryConsultation from "@/assets/discovery-consultation.png";
-import residentialSpace from "@/assets/residential-space.jpg";
+import designDevelopment from "@/assets/design-development.png";
 import customizationProcess from "@/assets/customization-process.jpg";
 import commercialSpace from "@/assets/commercial-space.jpg";
 
@@ -14,7 +14,7 @@ const ProductDevelopment = () => {
     {
       title: "2. Design & Development", 
       description: "Using CAD software and 3D printing tools, we model and prototype your custom components with precision.",
-      image: residentialSpace
+      image: designDevelopment
     },
     {
       title: "3. Production & Sourcing",
