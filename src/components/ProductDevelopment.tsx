@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import discoveryConsultation from "@/assets/discovery-consultation.png";
 import designDevelopment from "@/assets/design-development.png";
-import customizationProcess from "@/assets/customization-process.jpg";
+import productionSourcing from "@/assets/production-sourcing.png";
 import commercialSpace from "@/assets/commercial-space.jpg";
 
 const ProductDevelopment = () => {
@@ -19,7 +19,7 @@ const ProductDevelopment = () => {
     {
       title: "3. Production & Sourcing",
       description: "Once approved, we move into full-scale production, sourcing high-grade materials to ensure quality at every level.",
-      image: customizationProcess
+      image: productionSourcing
     },
     {
       title: "4. Quality Control",
