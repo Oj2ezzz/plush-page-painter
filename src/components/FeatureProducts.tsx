@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import doorHandlesImage from "/lovable-uploads/94bb99ab-dd61-46e2-b210-f0b9434382c8.png";
+import doorHandlesImage from "@/assets/door-handles.png";
 import slidingDoorSystemsImage from "/lovable-uploads/4322a9ca-a4ab-42a2-8e44-4052b28ac914.png";
 import doorClosersImage from "/lovable-uploads/dc01b2e3-c2f8-41fa-ba9e-9138194eaf65.png";
 import doorStopsGuidesImage from "/lovable-uploads/03a3fcaf-9c08-43ac-8ceb-18b0d0bd8aa9.png";
