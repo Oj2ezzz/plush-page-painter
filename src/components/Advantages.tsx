@@ -7,7 +7,7 @@ const Advantages = () => {
   const advantages = [
     {
       title: "Commercial Hardware Solutions",
-      description: "Durable, elegant, and built for high-traffic environments. From office spaces to industrial buildings, our products are designed to meet the highest performance and safety standards while elevating your professional space.",
+      description: "Engineered for heavy use and finished with timeless elegance. From corporate interiors to industrial sites, our products exceed performance and safety standards and elevate the aesthetic of any workspace.",
       icon: Building2
     },
     {
