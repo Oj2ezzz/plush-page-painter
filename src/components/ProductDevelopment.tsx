@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
-import commercialSpace from "@/assets/commercial-space.jpg";
+import discoveryConsultation from "@/assets/discovery-consultation.png";
 import residentialSpace from "@/assets/residential-space.jpg";
 import customizationProcess from "@/assets/customization-process.jpg";
+import commercialSpace from "@/assets/commercial-space.jpg";
 
 const ProductDevelopment = () => {
   const categories = [
     {
       title: "1. Discovery & Consultation",
       description: "We begin by understanding your goals, specs, and any challenges you're facing. Whether it's a custom build or a standard order, we treat each project with care.",
-      image: commercialSpace
+      image: discoveryConsultation
     },
     {
       title: "2. Design & Development", 
