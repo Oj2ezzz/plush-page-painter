@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import discoveryConsultation from "@/assets/discovery-consultation.png";
 import designDevelopment from "@/assets/design-development.png";
 import productionSourcing from "@/assets/production-sourcing.png";
-import commercialSpace from "@/assets/commercial-space.jpg";
+import qualityControl from "@/assets/quality-control.png";
 
 const ProductDevelopment = () => {
   const categories = [
@@ -24,7 +24,7 @@ const ProductDevelopment = () => {
     {
       title: "4. Quality Control",
       description: "Every piece goes through a rigorous quality check before shipping. We guarantee reliability, consistency, and finish.",
-      image: commercialSpace
+      image: qualityControl
     }
   ];
 
