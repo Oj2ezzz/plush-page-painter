@@ -4,7 +4,7 @@ import doorHandlesImage from "@/assets/door-handles.png";
 import slidingDoorSystemsImage from "@/assets/sliding-door-systems.png";
 import doorClosersImage from "@/assets/door-closers.png";
 import doorStopsGuidesImage from "@/assets/door-stops-guides.png";
-import hingesImage from "/lovable-uploads/771df4e8-d346-41df-ac0e-5d69177e3dce.png";
+import hingesImage from "@/assets/hinges.png";
 import aluminumBaseBoardsImage from "/lovable-uploads/e1c143de-c914-41e0-9b83-8c870e0e7b3a.png";
 
 type FeatureProductsProps = { showTitle?: boolean };
