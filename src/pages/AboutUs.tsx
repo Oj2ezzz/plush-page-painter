@@ -3,33 +3,25 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Building, Users, Award, Clock } from "lucide-react";
-
 const AboutUs = () => {
-  const stats = [
-    {
-      icon: Clock,
-      number: "25+",
-      label: "Years of Experience"
-    },
-    {
-      icon: Building,
-      number: "1000+",
-      label: "Projects Completed"
-    },
-    {
-      icon: Users,
-      number: "500+",
-      label: "Satisfied Clients"
-    },
-    {
-      icon: Award,
-      number: "100%",
-      label: "Quality Guarantee"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background overflow-hidden">
+  const stats = [{
+    icon: Clock,
+    number: "25+",
+    label: "Years of Experience"
+  }, {
+    icon: Building,
+    number: "1000+",
+    label: "Projects Completed"
+  }, {
+    icon: Users,
+    number: "500+",
+    label: "Satisfied Clients"
+  }, {
+    icon: Award,
+    number: "100%",
+    label: "Quality Guarantee"
+  }];
+  return <div className="min-h-screen bg-background overflow-hidden">
       <Header />
       
       {/* Hero Section with Luxury Background */}
@@ -53,11 +45,7 @@ const AboutUs = () => {
 
           {/* Premium Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto mb-12">
-            {stats.map((stat, index) => (
-              <div 
-                key={index} 
-                className="text-center group bg-glass backdrop-blur-md rounded-2xl p-8 border border-luxury-glass-border hover-scale animate-[fade-in_1s_ease-out_0.9s_both] hover:shadow-luxury-shadow transition-all duration-500"
-              >
+            {stats.map((stat, index) => <div key={index} className="text-center group bg-glass backdrop-blur-md rounded-2xl p-8 border border-luxury-glass-border hover-scale animate-[fade-in_1s_ease-out_0.9s_both] hover:shadow-luxury-shadow transition-all duration-500">
                 <div className="flex justify-center mb-6">
                   <div className="w-16 h-16 bg-gradient-luxury rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                     <stat.icon className="w-8 h-8 text-background" />
@@ -69,18 +57,12 @@ const AboutUs = () => {
                 <div className="text-sm text-muted-foreground font-medium">
                   {stat.label}
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Luxury CTA Button */}
           <div className="text-center animate-[scale-in_1s_ease-out_1.2s_both]">
-            <Button 
-              variant="glass" 
-              size="xl"
-              className="group hover-scale shadow-[0_0_30px_rgba(255,215,0,0.3)] hover:shadow-[0_0_50px_rgba(255,215,0,0.5)] transition-all duration-500"
-              onClick={() => window.location.href = 'tel:+16475617045'}
-            >
+            <Button variant="glass" size="xl" className="group hover-scale shadow-[0_0_30px_rgba(255,215,0,0.3)] hover:shadow-[0_0_50px_rgba(255,215,0,0.5)] transition-all duration-500" onClick={() => window.location.href = 'tel:+16475617045'}>
               <span className="relative z-10">Request a Quote</span>
               <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -107,12 +89,7 @@ const AboutUs = () => {
                   <span className="bg-gradient-luxury bg-clip-text text-transparent">Our Story</span>
                 </h2>
                 <div className="space-y-8">
-                  <p className="text-xl leading-relaxed text-muted-foreground text-center max-w-4xl mx-auto">
-                    MMR Hardware is built on a simple idea: great hardware should do more than just work. 
-                    It should look good, feel solid, and stand the test of time. With over 25 years of 
-                    hands-on experience, we've dedicated ourselves to creating hardware solutions that bring 
-                    together durability, function, and design.
-                  </p>
+                  <p className="text-xl leading-relaxed text-muted-foreground text-center max-w-4xl mx-auto">At MMR Hardware, we believe great hardware should do more than function — it should define the space around it. With over 25 years immersed in the architectural and glazing industry, we understand the standards, the expectations, and the culture that drives it. Our products are crafted to deliver lasting durability, reliable performance, and refined design, ensuring every piece not only works flawlessly but elevates the environments it’s built for.</p>
                   
                   <div className="w-24 h-1 bg-gradient-luxury mx-auto rounded-full"></div>
                   
@@ -199,20 +176,10 @@ const AboutUs = () => {
                 Let's work together to create something exceptional
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="secondary" 
-                  size="lg" 
-                  className="px-8 py-4 text-lg bg-background text-foreground hover:bg-background/90"
-                  onClick={() => window.location.href = 'tel:+16475617045'}
-                >
+                <Button variant="secondary" size="lg" className="px-8 py-4 text-lg bg-background text-foreground hover:bg-background/90" onClick={() => window.location.href = 'tel:+16475617045'}>
                   Request a Quote
                 </Button>
-                <Button 
-                  asChild 
-                  variant="secondary" 
-                  size="lg" 
-                  className="px-8 py-4 text-lg bg-background text-foreground hover:bg-background/90"
-                >
+                <Button asChild variant="secondary" size="lg" className="px-8 py-4 text-lg bg-background text-foreground hover:bg-background/90">
                   <Link to="/products">Explore Our Products</Link>
                 </Button>
               </div>
@@ -222,8 +189,6 @@ const AboutUs = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default AboutUs;
