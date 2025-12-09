@@ -5,7 +5,7 @@ import solidLadderPull from "@/assets/solid-ladder-pull.png";
 import hollowLadderPull from "@/assets/hollow-ladder-pull.png";
 import nonLockingLadderPull from "@/assets/non-locking-ladder-pull.jpeg";
 import lockingLadderPullLever from "@/assets/locking-ladder-pull-lever.png";
-import lockingLadderPullThumb from "/lovable-uploads/3d557921-a0c4-433e-a7a3-93904f7ba556.png";
+import lockingLadderPullThumb from "@/assets/locking-ladder-pull-thumb.png";
 
 const DoorHandles = () => {
   const products = [
