@@ -2,10 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer id="contact" className="py-16 bg-gradient-to-b from-card to-background border-t border-luxury-glass-border/30 relative overflow-hidden">
+  return <footer id="contact" className="py-16 bg-gradient-to-b from-card to-background border-t border-luxury-glass-border/30 relative overflow-hidden">
       {/* Luxury Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-luxury opacity-30"></div>
@@ -20,11 +18,7 @@ const Footer = () => {
           <div className="space-y-6">
             {/* Logo */}
             <div className="flex justify-center md:justify-start">
-              <img 
-                src="/lovable-uploads/2f935e40-4341-45ce-ac1a-7d9932defd80.png" 
-                alt="MMR Hardware Logo" 
-                className="h-28 w-auto"
-              />
+              <img src="/lovable-uploads/2f935e40-4341-45ce-ac1a-7d9932defd80.png" alt="MMR Hardware Logo" className="h-28 w-auto" />
             </div>
 
             {/* Contact Info - More Compact */}
@@ -32,35 +26,21 @@ const Footer = () => {
               <h3 className="text-lg font-semibold text-foreground">Contact Us</h3>
               <div className="space-y-3 text-sm">
                 <div>
-                  <a 
-                    href="mailto:Michael@MMRHardware.com" 
-                    className="text-muted-foreground hover:text-luxury-gold transition-colors duration-300 flex items-center gap-2"
-                  >
+                  <a href="mailto:Michael@MMRHardware.com" className="text-muted-foreground hover:text-luxury-gold transition-colors duration-300 flex items-center gap-2">
                     <span className="w-4 h-4 text-luxury-gold">✉</span>
                     Michael@MMRHardware.com
                   </a>
                 </div>
                 <div>
-                  <a 
-                    href="tel:+16475617045" 
-                    className="text-muted-foreground hover:text-luxury-gold transition-colors duration-300 flex items-center gap-2"
-                  >
+                  <a href="tel:+16475617045" className="text-muted-foreground hover:text-luxury-gold transition-colors duration-300 flex items-center gap-2">
                     <span className="w-4 h-4 text-luxury-gold">📞</span>
                     647-561-7045
                   </a>
                 </div>
-                <div className="text-muted-foreground flex items-center gap-2">
-                  <span className="w-4 h-4 text-luxury-gold">📍</span>
-                  <span className="text-xs">266 Rutherford Rd S, Unit 18, Brampton, ON</span>
-                </div>
+                
               </div>
               
-              <Button 
-                variant="glass" 
-                size="sm"
-                className="w-full hover-scale transition-all duration-300"
-                onClick={() => window.location.href = 'tel:+16475617045'}
-              >
+              <Button variant="glass" size="sm" className="w-full hover-scale transition-all duration-300" onClick={() => window.location.href = 'tel:+16475617045'}>
                 Get a Quote
               </Button>
             </div>
@@ -75,11 +55,7 @@ const Footer = () => {
             
             <div className="space-y-3">
               <div className="flex gap-2">
-                <Input 
-                  type="email" 
-                  placeholder="Enter email"
-                  className="flex-1 bg-secondary/60 border-luxury-glass-border/50 focus:border-luxury-gold text-sm h-9"
-                />
+                <Input type="email" placeholder="Enter email" className="flex-1 bg-secondary/60 border-luxury-glass-border/50 focus:border-luxury-gold text-sm h-9" />
                 <Button variant="luxury" size="sm" className="px-4 h-9">
                   Submit
                 </Button>
@@ -101,10 +77,7 @@ const Footer = () => {
                 <Link to="/products" className="text-muted-foreground hover:text-luxury-gold transition-colors duration-300">
                   Products
                 </Link>
-                <button 
-                  onClick={() => window.location.href = 'tel:+16475617045'}
-                  className="text-left text-muted-foreground hover:text-luxury-gold transition-colors duration-300"
-                >
+                <button onClick={() => window.location.href = 'tel:+16475617045'} className="text-left text-muted-foreground hover:text-luxury-gold transition-colors duration-300">
                   Request Quote
                 </button>
               </nav>
@@ -144,8 +117,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
