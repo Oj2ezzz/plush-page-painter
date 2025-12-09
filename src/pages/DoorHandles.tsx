@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import solidLadderPull from "@/assets/solid-ladder-pull.jpeg";
+import solidLadderPull from "@/assets/solid-ladder-pull.png";
 import hollowLadderPull from "@/assets/hollow-ladder-pull.jpeg";
 import nonLockingLadderPull from "@/assets/non-locking-ladder-pull.jpeg";
 import lockingLadderPullLever from "@/assets/locking-ladder-pull-lever.png";
