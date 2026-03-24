@@ -12,7 +12,7 @@ const ProductDevelopment = () => {
       image: discoveryConsultation
     },
     {
-      title: "2. Design & Development", 
+      title: "2. Design & Development",
       description: "Using CAD software and 3D printing tools, we model and prototype your custom components with precision.",
       image: designDevelopment
     },
@@ -29,7 +29,7 @@ const ProductDevelopment = () => {
   ];
 
   return (
-    <section id="development" className="py-24 bg-muted/20">
+    <section id="development" className="py-24 bg-secondary">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
@@ -43,18 +43,17 @@ const ProductDevelopment = () => {
           {categories.map((category, index) => (
             <div key={index} className="group space-y-6">
               {/* Image */}
-              <div className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-card">
-                <img 
-                  src={category.image} 
+              <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-background border border-border shadow-sm group-hover:shadow-lg transition-all duration-300">
+                <img
+                  src={category.image}
                   alt={category.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
               </div>
 
               {/* Content */}
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-foreground group-hover:text-luxury-gold transition-colors">
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-muted-foreground transition-colors">
                   {category.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -67,8 +66,8 @@ const ProductDevelopment = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button 
-            variant="luxury" 
+          <Button
+            variant="luxury"
             size="xl"
             onClick={() => window.location.href = 'tel:+16475617045'}
           >
