@@ -10,7 +10,7 @@ const Benefits = () => {
     },
     {
       icon: Shield,
-      title: "Expert Design Support", 
+      title: "Expert Design Support",
       description: "From CAD modeling to 3D printing, we provide the tools and talent to turn concepts into fully engineered products."
     },
     {
@@ -38,11 +38,11 @@ const Benefits = () => {
   return (
     <section id="benefits" className="py-24 bg-background relative overflow-hidden">
       {/* Background Image */}
-      <div 
-        className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center opacity-40"
+      <div
+        className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center opacity-10"
         style={{ backgroundImage: `url(${officeInterior})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-6">
@@ -58,13 +58,13 @@ const Benefits = () => {
           {benefits.map((benefit, index) => (
             <div key={index} className="group space-y-6">
               {/* Icon */}
-              <div className="w-16 h-16 bg-secondary/60 backdrop-blur-sm rounded-xl flex items-center justify-center border border-luxury-glass-border group-hover:bg-luxury-glass-overlay group-hover:border-luxury-gold/30 transition-all duration-300">
-                <benefit.icon className="w-8 h-8 text-luxury-gold" />
+              <div className="w-16 h-16 bg-accent rounded-xl flex items-center justify-center border border-border group-hover:bg-primary/5 group-hover:border-primary/20 transition-all duration-300">
+                <benefit.icon className="w-8 h-8 text-foreground" />
               </div>
 
               {/* Content */}
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground group-hover:text-luxury-gold transition-colors">
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
                   {benefit.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">

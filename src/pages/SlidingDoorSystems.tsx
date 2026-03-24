@@ -13,89 +13,42 @@ import stainless3 from "/lovable-uploads/35f5a49b-fc97-40df-aff2-5da9fc55ba23.pn
 
 const SlidingDoorSystems = () => {
   const products = [
-    {
-      title: "Sweep Glide Soft Close 120KG",
-      image: sweepGlideSoftClose
-    },
-    {
-      title: "Black Iron 1", 
-      image: blackIron1
-    },
-    {
-      title: "Black Iron 2",
-      image: blackIron2
-    },
-    {
-      title: "Black Iron 3",
-      image: blackIron3
-    },
-    {
-      title: "Black Iron 4",
-      image: blackIron4
-    },
-    {
-      title: "Stainless 1",
-      image: stainless1
-    },
-    {
-      title: "Stainless 2",
-      image: stainless2
-    },
-    {
-      title: "Stainless 3",
-      image: stainless3
-    }
+    { title: "Sweep Glide Soft Close 120KG", image: sweepGlideSoftClose },
+    { title: "Black Iron 1", image: blackIron1 },
+    { title: "Black Iron 2", image: blackIron2 },
+    { title: "Black Iron 3", image: blackIron3 },
+    { title: "Black Iron 4", image: blackIron4 },
+    { title: "Stainless 1", image: stainless1 },
+    { title: "Stainless 2", image: stainless2 },
+    { title: "Stainless 3", image: stainless3 }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
       <section className="pt-52 pb-24 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-8">
-              Sliding Door Systems
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Professional sliding door hardware for smooth and reliable operation
-            </p>
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-8">Sliding Door Systems</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Professional sliding door hardware for smooth and reliable operation</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
             {products.map((product, index) => (
               <div key={index} className="group space-y-6">
-                <div className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-card border border-luxury-glass-border">
-                  <img 
-                    src={product.image} 
-                    alt={product.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-secondary border border-border shadow-sm group-hover:shadow-lg transition-all duration-300">
+                  <img src={product.image} alt={product.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-
                 <div className="text-center">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-luxury-gold transition-colors">
-                    {product.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors">{product.title}</h3>
                 </div>
               </div>
             ))}
           </div>
-
-          {/* Request Quote CTA */}
           <div className="text-center mt-16">
-            <Button 
-              variant="luxury" 
-              size="lg"
-              onClick={() => window.location.href = 'tel:+16475617045'}
-            >
-              Request a Quote
-            </Button>
+            <Button variant="luxury" size="lg" onClick={() => window.location.href = 'tel:+16475617045'}>Request a Quote</Button>
           </div>
-
         </div>
       </section>
-
       <Footer />
     </div>
   );
