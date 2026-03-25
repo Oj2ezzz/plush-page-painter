@@ -11,7 +11,7 @@ import DoorHandles from "./pages/DoorHandles";
 import DoorClosers from "./pages/DoorClosers";
 import DoorStopsGuides from "./pages/DoorStopsGuides";
 import Hinges from "./pages/Hinges";
-import AluminumBaseboards from "./pages/AluminumBaseboards";
+
 import Products from "./pages/Products";
 import AboutUs from "./pages/AboutUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
