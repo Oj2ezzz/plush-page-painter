@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import doorHandlesImage from "@/assets/door-handles.png";
-import slidingDoorSystemsImage from "@/assets/sliding-door-systems.png";
+
 import doorClosersImage from "@/assets/door-closers.png";
 import doorStopsGuidesImage from "@/assets/door-stops-guides.png";
 import hingesImage from "@/assets/hinges.png";
-import aluminumBaseBoardsImage from "@/assets/aluminum-baseboards.png";
+
 
 type FeatureProductsProps = { showTitle?: boolean };
 const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
   const products = [
     { title: "Door Handles", image: doorHandlesImage, path: "/door-handles" },
-    { title: "Sliding Door Systems", image: slidingDoorSystemsImage, path: "/sliding-door-systems" },
+    
     { title: "Door Closers", image: doorClosersImage, path: "/door-closers" },
     { title: "Door Stops & Guides", image: doorStopsGuidesImage, path: "/door-stops-guides" },
     { title: "Hinges", image: hingesImage, path: "/hinges" },
-    { title: "Aluminum Base Boards", image: aluminumBaseBoardsImage, path: "/aluminum-baseboards" }
+    
   ];
 
   return (
