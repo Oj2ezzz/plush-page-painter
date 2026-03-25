@@ -36,8 +36,8 @@ const Header = () => {
             {/* Logo */}
             <div className="flex items-center space-x-4">
               <Link to="/" onClick={closeMobileMenu} className="transition-transform duration-300 hover:scale-105">
-                <div className={`rounded-full overflow-hidden bg-muted p-1 transition-all duration-500 ease-out ${isScrolled ? 'h-20 w-20' : 'h-28 w-28'}`}>
-                  <img src={mmrLogo} alt="MMR Hardware Logo" className="w-full h-full object-cover rounded-full" />
+                <div className={`transition-all duration-500 ease-out ${isScrolled ? 'h-12' : 'h-16'}`}>
+                   <img src={mmrLogo} alt="MMR Hardware Logo" className="h-full w-auto object-contain" />
                 </div>
               </Link>
             </div>
