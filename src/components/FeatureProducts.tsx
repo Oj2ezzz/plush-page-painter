@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import doorHandlesImage from "@/assets/door-handles.png";
-import slidingDoorSystemsImage from "@/assets/sliding-door-systems.png";
+
 import doorClosersImage from "@/assets/door-closers.png";
 import doorStopsGuidesImage from "@/assets/door-stops-guides.png";
 import hingesImage from "@/assets/hinges.png";
