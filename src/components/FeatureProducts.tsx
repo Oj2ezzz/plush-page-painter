@@ -15,7 +15,7 @@ const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
     { title: "Door Closers", image: doorClosersImage, path: "/door-closers" },
     { title: "Door Stops & Guides", image: doorStopsGuidesImage, path: "/door-stops-guides" },
     { title: "Hinges", image: hingesImage, path: "/hinges" },
-    { title: "Aluminum Base Boards", image: aluminumBaseBoardsImage, path: "/aluminum-baseboards" }
+    
   ];
 
   return (
