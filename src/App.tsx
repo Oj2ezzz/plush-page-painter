@@ -7,7 +7,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import DoorHandles from "./pages/DoorHandles";
-import SlidingDoorSystems from "./pages/SlidingDoorSystems";
+
 import DoorClosers from "./pages/DoorClosers";
 import DoorStopsGuides from "./pages/DoorStopsGuides";
 import Hinges from "./pages/Hinges";
