@@ -5,7 +5,7 @@ import doorHandlesImage from "@/assets/door-handles.png";
 import doorClosersImage from "@/assets/door-closers.png";
 import doorStopsGuidesImage from "@/assets/door-stops-guides.png";
 import hingesImage from "@/assets/hinges.png";
-import aluminumBaseBoardsImage from "@/assets/aluminum-baseboards.png";
+
 
 type FeatureProductsProps = { showTitle?: boolean };
 const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
