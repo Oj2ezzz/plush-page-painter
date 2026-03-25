@@ -11,7 +11,7 @@ type FeatureProductsProps = { showTitle?: boolean };
 const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
   const products = [
     { title: "Door Handles", image: doorHandlesImage, path: "/door-handles" },
-    { title: "Sliding Door Systems", image: slidingDoorSystemsImage, path: "/sliding-door-systems" },
+    
     { title: "Door Closers", image: doorClosersImage, path: "/door-closers" },
     { title: "Door Stops & Guides", image: doorStopsGuidesImage, path: "/door-stops-guides" },
     { title: "Hinges", image: hingesImage, path: "/hinges" },
