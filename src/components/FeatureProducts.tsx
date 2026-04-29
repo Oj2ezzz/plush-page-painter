@@ -23,7 +23,7 @@ const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
       <div className="container mx-auto px-6">
         {showTitle && (
           <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-8">
+            <h2 className="text-5xl md:text-6xl font-bold heading-accent">
               Our Products
             </h2>
           </div>
@@ -32,16 +32,17 @@ const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
           {products.map((product, index) => (
-            <Link key={index} to={product.path} className="group space-y-6 block">
-              <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-secondary border border-border shadow-sm group-hover:shadow-lg transition-all duration-300">
+            <Link key={index} to={product.path} className="group space-y-5 block card-lift rounded-xl">
+              <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-secondary border border-border shadow-sm transition-all duration-300">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="text-center">
-                <h3 className="text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
                   {product.title}
                 </h3>
               </div>

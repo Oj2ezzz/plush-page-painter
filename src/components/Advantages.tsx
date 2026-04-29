@@ -35,7 +35,7 @@ const Advantages = () => {
       <div className="relative z-10 container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-8">
+          <h2 className="text-5xl md:text-6xl font-bold heading-accent">
             What We Offer
           </h2>
         </div>
@@ -45,16 +45,16 @@ const Advantages = () => {
           {advantages.map((advantage, index) => (
             <div
               key={index}
-              className="group space-y-6 text-center p-8 rounded-xl bg-background border border-border hover:shadow-lg transition-all duration-300"
+              className="group space-y-6 text-center p-8 rounded-xl bg-background border border-border card-lift"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="flex justify-center mb-6">
-                <div className="p-4 rounded-full bg-accent group-hover:bg-primary/5 transition-all duration-300">
-                  <advantage.icon className="w-16 h-16 text-foreground group-hover:text-primary transition-colors duration-300" />
+                <div className="p-4 rounded-full bg-accent group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                  <advantage.icon className="w-16 h-16 text-foreground group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
               </div>
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-foreground transition-colors duration-300">
                   {advantage.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">

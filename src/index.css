@@ -114,6 +114,20 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+
+  h1 { letter-spacing: -0.035em; }
+  h2 { letter-spacing: -0.03em; }
+
+  p {
+    line-height: 1.65;
   }
 }
 
@@ -129,5 +143,29 @@
 
   .glow-gold {
     box-shadow: 0 4px 24px -4px hsl(var(--primary) / 0.1);
+  }
+
+  /* Section heading accent — short underline using primary color */
+  .heading-accent {
+    @apply relative inline-block pb-4;
+  }
+  .heading-accent::after {
+    content: "";
+    @apply absolute left-1/2 -translate-x-1/2 bottom-0 h-[3px] w-16 rounded-full;
+    background: hsl(var(--primary));
+  }
+
+  /* Card lift on hover — subtle scale + shadow */
+  .card-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -18px hsl(var(--primary) / 0.18);
+  }
+
+  /* Soft section divider gradient */
+  .section-fade-top {
+    background-image: linear-gradient(to bottom, hsl(var(--secondary)) 0%, hsl(var(--background)) 100%);
   }
 }
