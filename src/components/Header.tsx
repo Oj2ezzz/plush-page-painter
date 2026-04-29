@@ -23,14 +23,6 @@ const Header = () => {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border transition-all duration-500 ease-out ${isScrolled ? 'py-0' : ''}`}>
         {/* Trust Badge */}
-        <div className={`bg-primary transition-all duration-500 ease-out ${isScrolled ? 'py-0.5 opacity-90' : 'py-2 opacity-100'}`}>
-          <div className="container mx-auto px-6">
-            <p className={`text-center font-medium text-primary-foreground transition-all duration-500 ease-out ${isScrolled ? 'text-xs' : 'text-sm'}`}>
-              ✨ Founded in 2025
-            </p>
-          </div>
-        </div>
-
         <div className={`container mx-auto px-6 transition-all duration-500 ease-out ${isScrolled ? 'py-1.5' : 'py-3'}`}>
           <div className="flex items-center justify-between">
             {/* Logo */}
