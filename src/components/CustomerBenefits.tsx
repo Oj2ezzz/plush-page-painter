@@ -29,7 +29,7 @@ const CustomerBenefits = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-8">
+          <h2 className="text-5xl md:text-6xl font-bold heading-accent">
             Customer Benefits
           </h2>
         </div>
@@ -39,18 +39,18 @@ const CustomerBenefits = () => {
           {benefits.map((benefit, index) => (
             <div
               key={index}
-              className="group text-center space-y-6 p-8 rounded-xl bg-background border border-border hover:shadow-lg transition-all duration-300"
+              className="group text-center space-y-6 p-8 rounded-xl bg-background border border-border card-lift"
             >
               {/* Icon */}
               <div className="flex justify-center mb-6">
-                <div className="p-4 rounded-full bg-accent group-hover:bg-primary/5 transition-all duration-300 border border-border group-hover:border-primary/20">
-                  <benefit.icon className="w-16 h-16 text-foreground group-hover:text-primary transition-colors duration-300" />
+                <div className="p-4 rounded-full bg-accent group-hover:bg-primary group-hover:scale-110 transition-all duration-300 border border-border">
+                  <benefit.icon className="w-16 h-16 text-foreground group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
               </div>
 
               {/* Content */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground transition-colors duration-300">
                   {benefit.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">

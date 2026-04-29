@@ -48,23 +48,23 @@ const Benefits = () => {
       <div className="relative z-10 container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-8">
+          <h2 className="text-5xl md:text-6xl font-bold heading-accent">
             Why Choose MMR Hardware?
           </h2>
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {benefits.map((benefit, index) => (
-            <div key={index} className="group space-y-6">
+            <div key={index} className="group space-y-6 p-6 rounded-xl card-lift hover:bg-secondary/60">
               {/* Icon */}
-              <div className="w-16 h-16 bg-accent rounded-xl flex items-center justify-center border border-border group-hover:bg-primary/5 group-hover:border-primary/20 transition-all duration-300">
-                <benefit.icon className="w-8 h-8 text-foreground" />
+              <div className="w-16 h-16 bg-accent rounded-xl flex items-center justify-center border border-border group-hover:bg-primary group-hover:border-primary group-hover:scale-110 transition-all duration-300">
+                <benefit.icon className="w-8 h-8 text-foreground group-hover:text-primary-foreground transition-colors duration-300" />
               </div>
 
               {/* Content */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+              <div className="space-y-3">
+                <h3 className="text-xl font-semibold text-foreground">
                   {benefit.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">

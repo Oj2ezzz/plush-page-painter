@@ -33,7 +33,7 @@ const ProductDevelopment = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-8">
+          <h2 className="text-5xl md:text-6xl font-bold heading-accent">
             Our Process
           </h2>
         </div>
@@ -41,19 +41,20 @@ const ProductDevelopment = () => {
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {categories.map((category, index) => (
-            <div key={index} className="group space-y-6">
+            <div key={index} className="group space-y-5 card-lift rounded-xl">
               {/* Image */}
-              <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-background border border-border shadow-sm group-hover:shadow-lg transition-all duration-300">
+              <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-background border border-border shadow-sm transition-all duration-300">
                 <img
                   src={category.image}
                   alt={category.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
               {/* Content */}
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-foreground group-hover:text-muted-foreground transition-colors">
+              <div className="space-y-3 px-1">
+                <h3 className="text-2xl font-bold text-foreground transition-colors">
                   {category.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
