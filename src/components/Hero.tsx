@@ -7,7 +7,7 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 animate-[scale-in_1.5s_ease-out]"
+        className="absolute inset-0 bg-cover bg-no-repeat bg-[70%_center] scale-110 animate-[scale-in_1.5s_ease-out]"
         style={{ backgroundImage: `url(${heroLadderPulls.url})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90"></div>
