@@ -8,9 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import DoorHandles from "./pages/DoorHandles";
 
-import DoorClosers from "./pages/DoorClosers";
-import DoorStopsGuides from "./pages/DoorStopsGuides";
-import Hinges from "./pages/Hinges";
 
 import Products from "./pages/Products";
 import AboutUs from "./pages/AboutUs";
@@ -32,9 +29,7 @@ const App = () => (
           <Route path="/products" element={<Products />} />
           <Route path="/door-handles" element={<DoorHandles />} />
           
-          <Route path="/door-closers" element={<DoorClosers />} />
-          <Route path="/door-stops-guides" element={<DoorStopsGuides />} />
-          <Route path="/hinges" element={<Hinges />} />
+
           
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />

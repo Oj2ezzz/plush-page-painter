@@ -2,20 +2,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import doorHandlesImage from "@/assets/door-handles.png";
 
-import doorClosersImage from "@/assets/door-closers.png";
-import doorStopsGuidesImage from "@/assets/door-stops-guides.png";
-import hingesImage from "@/assets/hinges.png";
-
 
 type FeatureProductsProps = { showTitle?: boolean };
 const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
   const products = [
-    { title: "Door Handles", image: doorHandlesImage, path: "/door-handles" },
-    
-    { title: "Door Closers", image: doorClosersImage, path: "/door-closers" },
-    { title: "Door Stops & Guides", image: doorStopsGuidesImage, path: "/door-stops-guides" },
-    { title: "Hinges", image: hingesImage, path: "/hinges" },
-    
+    { title: "Door Handles", image: doorHandlesImage, path: "/door-handles" }
   ];
 
   return (
