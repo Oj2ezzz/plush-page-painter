@@ -5,7 +5,7 @@ const Benefits = () => {
   const benefits = [
     {
       icon: Package,
-      title: "Over 25 Years of Experience",
+      title: "Over 10 years of experience",
       description: "Our team has decades of industry knowledge in interior and exterior hardware for both residential and commercial builds."
     },
     {
