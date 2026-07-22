@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import doorHandlesImage from "@/assets/door-handles.png";
 
-
 type FeatureProductsProps = { showTitle?: boolean };
 const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
   const products = [
