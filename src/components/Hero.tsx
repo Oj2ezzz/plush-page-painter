@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import heroBuilding from "@/assets/hero-building.jpg";
+import heroLadderPulls from "@/assets/hero-ladder-pulls.png.asset.json";
 
 const Hero = () => {
   return (
