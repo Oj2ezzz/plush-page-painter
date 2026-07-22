@@ -20,7 +20,7 @@ const FeatureProducts = ({ showTitle = true }: FeatureProductsProps) => {
         )}
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 place-items-center">
+        <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto mb-16 place-items-center">
           {products.map((product, index) => (
             <Link key={index} to={product.path} className="group space-y-5 block card-lift rounded-xl">
               <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-secondary border border-border shadow-sm transition-all duration-300">
