@@ -7,7 +7,7 @@ const Products = () => {
   useEffect(() => {
     document.title = "Our Products | MMR Hardware";
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", "Browse our full range of premium door hardware products including handles, sliding systems, closers, stops, hinges, and aluminum baseboards.");
+    if (meta) meta.setAttribute("content", "Browse our premium door hardware products including handles and accessories.");
   }, []);
 
   return (
