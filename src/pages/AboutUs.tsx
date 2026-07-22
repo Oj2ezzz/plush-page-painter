@@ -6,7 +6,7 @@ import { Building, Users, Award, Clock } from "lucide-react";
 
 const AboutUs = () => {
   const stats = [
-    { icon: Clock, number: "25+", label: "Years of Experience" },
+    { icon: Clock, number: "10+", label: "Years of Experience" },
     { icon: Building, number: "1000+", label: "Projects Completed" },
     { icon: Users, number: "500+", label: "Satisfied Clients" },
     { icon: Award, number: "100%", label: "Quality Guarantee" }
@@ -69,7 +69,7 @@ const AboutUs = () => {
                 <h2 className="text-5xl md:text-6xl font-bold text-center mb-12 text-foreground">Our Story</h2>
                 <div className="space-y-8">
                   <p className="text-xl leading-relaxed text-muted-foreground text-center max-w-4xl mx-auto">
-                    At MMR Hardware, we believe great hardware should do more than function — it should define the space around it. With over 25 years immersed in the architectural and glazing industry, we understand the standards, the expectations, and the culture that drives it. Our products are crafted to deliver lasting durability, reliable performance, and refined design, ensuring every piece not only works flawlessly but elevates the environments it's built for.
+                    At MMR Hardware, we believe great hardware should do more than function — it should define the space around it. With over 10 years immersed in the architectural and glazing industry, we understand the standards, the expectations, and the culture that drives it. Our products are crafted to deliver lasting durability, reliable performance, and refined design, ensuring every piece not only works flawlessly but elevates the environments it's built for.
                   </p>
                   <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
                   <p className="text-xl leading-relaxed text-muted-foreground text-center max-w-4xl mx-auto">
