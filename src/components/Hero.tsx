@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import heroLadderPulls from "@/assets/hero-ladder-pulls.png.asset.json";
+import heroBackground from "@/assets/hero-background.png.asset.json";
 
 const Hero = () => {
   return (
@@ -8,7 +8,7 @@ const Hero = () => {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-no-repeat bg-[70%_center] scale-110 animate-[scale-in_1.5s_ease-out]"
-        style={{ backgroundImage: `url(${heroLadderPulls.url})` }}
+        style={{ backgroundImage: `url(${heroBackground.url})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90"></div>
       </div>
