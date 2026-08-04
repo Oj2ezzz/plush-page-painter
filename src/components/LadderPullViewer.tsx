@@ -226,6 +226,9 @@ export default function LadderPullViewer({
       ONE: THREE.TOUCH.ROTATE,
       TWO: THREE.TOUCH.DOLLY_ROTATE,
     };
+    // OrbitControls sets touch-action:none on connect; restore vertical page
+    // scrolling over the canvas.
+    renderer.domElement.style.touchAction = "pan-y";
 
     let idleTimer: ReturnType<typeof setTimeout> | undefined;
     const pause = () => {
