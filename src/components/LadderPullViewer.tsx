@@ -364,19 +364,24 @@ export default function LadderPullViewer({
 
     const soFaceZ = GLASS_T / 2 + 0.0032; // standoff starts just outside the ring
     const soLen = TUBE_Z - TUBE_R - soFaceZ; // reaches the tube wall
-    const soGeo = standoffGeometry(soLen);
-    const screwGeo = new THREE.CylinderGeometry(0.0019, 0.0019, 0.0055, 16);
+    const soGeo = standoffGeometry(soLen, isMobile);
+    const screwGeo = new THREE.CylinderGeometry(
+      0.0019,
+      0.0019,
+      0.0055,
+      isMobile ? 10 : 16,
+    );
     const ringGeo = new THREE.CylinderGeometry(
       RING_R,
       RING_R,
       GLASS_T + 0.0064,
-      48,
+      isMobile ? 28 : 48,
     );
     const gasketGeo = new THREE.CylinderGeometry(
       RING_R + 0.0004,
       RING_R + 0.0004,
       0.0013,
-      48,
+      isMobile ? 28 : 48,
     );
     disposables.push(soGeo, screwGeo, ringGeo, gasketGeo);
 
