@@ -110,7 +110,7 @@ const LadderPullConfigurator = () => {
     <section
       ref={sectionRef}
       id="configurator"
-      className="w-full bg-background py-20"
+      className="w-full bg-background py-12 lg:py-20"
     >
       <div className="container mx-auto px-4">
         <div className="mb-10 max-w-2xl">
