@@ -86,7 +86,7 @@ const LadderPullConfigurator = () => {
         onClick={() => setFinish(id)}
         aria-pressed={active}
         className={cn(
-          "flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-colors",
+          "flex min-h-[40px] items-center gap-2 rounded-full border px-3 py-2.5 text-xs transition-colors lg:min-h-0 lg:py-1.5",
           active
             ? "border-foreground/70 bg-foreground/5 text-foreground"
             : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
