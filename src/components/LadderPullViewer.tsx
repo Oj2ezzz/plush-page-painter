@@ -131,7 +131,7 @@ function shadowTexture() {
 }
 
 /** Flat cap with a small radiused edge, lathed around Y (base at y=0). */
-function capGeometry() {
+function capGeometry(isMobile = false) {
   const pts: THREE.Vector2[] = [];
   const steps = 8;
   for (let i = 0; i <= steps; i++) {
@@ -144,11 +144,11 @@ function capGeometry() {
     );
   }
   pts.push(new THREE.Vector2(0, FILLET));
-  return new THREE.LatheGeometry(pts, 56);
+  return new THREE.LatheGeometry(pts, isMobile ? 32 : 56);
 }
 
 /** Standoff half: lathed profile, widest at the glass, domed shoulder at the tube. */
-function standoffGeometry(len: number) {
+function standoffGeometry(len: number, isMobile = false) {
   const pts = [new THREE.Vector2(0, 0), new THREE.Vector2(SO_R, 0)];
   const stops: [number, number][] = [
     [0.3, 1.0],
@@ -160,7 +160,7 @@ function standoffGeometry(len: number) {
   ];
   for (const [t, k] of stops) pts.push(new THREE.Vector2(SO_R * k, len * t));
   pts.push(new THREE.Vector2(0, len));
-  return new THREE.LatheGeometry(pts, 48);
+  return new THREE.LatheGeometry(pts, isMobile ? 28 : 48);
 }
 
 export default function LadderPullViewer({
