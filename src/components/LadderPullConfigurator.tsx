@@ -205,6 +205,7 @@ const LadderPullConfigurator = () => {
                 step={1}
                 onValueChange={([v]) => setLengthIn(v)}
                 aria-label="Overall length in inches"
+                className="py-2 [&_[role=slider]]:h-6 [&_[role=slider]]:w-6 lg:[&_[role=slider]]:h-5 lg:[&_[role=slider]]:w-5"
               />
 
               <div className="mt-2 flex justify-between text-[11px] text-muted-foreground">
