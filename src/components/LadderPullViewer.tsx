@@ -178,6 +178,11 @@ export default function LadderPullViewer({
     const mount = mountRef.current;
     if (!mount) return;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     // Graceful bail-out if WebGL is unavailable rather than throwing.
     let renderer: THREE.WebGLRenderer;
     try {
@@ -187,7 +192,9 @@ export default function LadderPullViewer({
     }
 
     const disposables: { dispose: () => void }[] = [];
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2),
+    );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.94;
     renderer.domElement.style.width = "100%";
@@ -197,7 +204,7 @@ export default function LadderPullViewer({
     mount.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    const env = studioEnv(renderer);
+    const env = studioEnv(renderer, isMobile);
     scene.environment = env;
     scene.environmentIntensity = 0.95;
     disposables.push(env);
