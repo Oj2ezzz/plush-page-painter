@@ -216,15 +216,22 @@ export default function LadderPullViewer({
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enablePan = false;
-    controls.autoRotate = true;
+    controls.autoRotate = !prefersReducedMotion;
     controls.autoRotateSpeed = 0.7;
     controls.minDistance = 0.25;
     controls.maxDistance = 12;
+    // Pinch-zoom on a small canvas fights page zoom; one-finger orbit instead.
+    controls.enableZoom = !isMobile;
+    controls.touches = {
+      ONE: THREE.TOUCH.ROTATE,
+      TWO: THREE.TOUCH.DOLLY_ROTATE,
+    };
 
     let idleTimer: ReturnType<typeof setTimeout> | undefined;
     const pause = () => {
       controls.autoRotate = false;
       clearTimeout(idleTimer);
+      if (prefersReducedMotion) return;
       idleTimer = setTimeout(() => {
         controls.autoRotate = true;
       }, 3000);
