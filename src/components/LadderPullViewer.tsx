@@ -530,9 +530,21 @@ export default function LadderPullViewer({
     );
     io.observe(mount);
 
+    // Stop drawing entirely while the tab is backgrounded.
+    let tabVisible = !document.hidden;
+    const onVisibility = () => {
+      tabVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const tmp = new THREE.Vector3();
+    let frame = 0;
     renderer.setAnimationLoop(() => {
-      if (!visible) return;
+      if (!visible || !tabVisible) return;
+      // ~30fps on mobile.
+      frame++;
+      if (isMobile && frame % 2 === 0) return;
+
 
       if (Math.abs(state.targetIn - state.lenIn) > 0.002) {
         state.lenIn += (state.targetIn - state.lenIn) * 0.14;
