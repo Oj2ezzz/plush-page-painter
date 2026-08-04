@@ -5,6 +5,7 @@ import Benefits from "@/components/Benefits";
 import ProductDevelopment from "@/components/ProductDevelopment";
 import FeatureProducts from "@/components/FeatureProducts";
 import CustomerBenefits from "@/components/CustomerBenefits";
+import LadderPullConfigurator from "@/components/LadderPullConfigurator";
 import Footer from "@/components/Footer";
 
 const Index = () => {
