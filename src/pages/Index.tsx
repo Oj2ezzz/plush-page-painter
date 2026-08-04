@@ -5,6 +5,7 @@ import Benefits from "@/components/Benefits";
 import ProductDevelopment from "@/components/ProductDevelopment";
 import FeatureProducts from "@/components/FeatureProducts";
 import CustomerBenefits from "@/components/CustomerBenefits";
+import LadderPullConfigurator from "@/components/LadderPullConfigurator";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -27,9 +28,12 @@ const Index = () => {
         <FeatureProducts />
       </div>
       <div className="animate-fade-in [animation-delay:1s]">
-        <CustomerBenefits />
+        <LadderPullConfigurator />
       </div>
       <div className="animate-fade-in [animation-delay:1.2s]">
+        <CustomerBenefits />
+      </div>
+      <div className="animate-fade-in [animation-delay:1.4s]">
         <Footer />
       </div>
     </div>
