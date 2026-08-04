@@ -182,7 +182,7 @@ const LadderPullConfigurator = () => {
                       onClick={() => setUnit(u)}
                       aria-pressed={unit === u}
                       className={cn(
-                        "px-2 py-1 transition-colors",
+                        "min-h-[40px] px-3 py-2 transition-colors lg:min-h-0 lg:px-2 lg:py-1",
                         unit === u
                           ? "bg-foreground text-background"
                           : "text-muted-foreground hover:text-foreground",
