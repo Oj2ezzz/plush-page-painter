@@ -147,7 +147,7 @@ const LadderPullConfigurator = () => {
 
           {/* Controls */}
           <aside className="flex flex-col gap-8 rounded-xl border border-border bg-card p-6">
-            <div>
+            <div className="sticky top-0 z-10 -mx-6 -mt-6 border-b border-border bg-card px-6 py-4 lg:static lg:mx-0 lg:mt-0 lg:border-b-0 lg:p-0">
               <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 Your configuration
               </p>
