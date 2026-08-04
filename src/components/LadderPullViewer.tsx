@@ -57,9 +57,9 @@ function brushTexture() {
 }
 
 /* ---------- studio environment (equirect canvas -> PMREM) ---------- */
-function studioEnv(renderer: THREE.WebGLRenderer) {
-  const w = 1024;
-  const h = 512;
+function studioEnv(renderer: THREE.WebGLRenderer, isMobile = false) {
+  const w = isMobile ? 512 : 1024;
+  const h = isMobile ? 256 : 512;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
@@ -131,7 +131,7 @@ function shadowTexture() {
 }
 
 /** Flat cap with a small radiused edge, lathed around Y (base at y=0). */
-function capGeometry() {
+function capGeometry(isMobile = false) {
   const pts: THREE.Vector2[] = [];
   const steps = 8;
   for (let i = 0; i <= steps; i++) {
@@ -144,11 +144,11 @@ function capGeometry() {
     );
   }
   pts.push(new THREE.Vector2(0, FILLET));
-  return new THREE.LatheGeometry(pts, 56);
+  return new THREE.LatheGeometry(pts, isMobile ? 32 : 56);
 }
 
 /** Standoff half: lathed profile, widest at the glass, domed shoulder at the tube. */
-function standoffGeometry(len: number) {
+function standoffGeometry(len: number, isMobile = false) {
   const pts = [new THREE.Vector2(0, 0), new THREE.Vector2(SO_R, 0)];
   const stops: [number, number][] = [
     [0.3, 1.0],
@@ -160,7 +160,7 @@ function standoffGeometry(len: number) {
   ];
   for (const [t, k] of stops) pts.push(new THREE.Vector2(SO_R * k, len * t));
   pts.push(new THREE.Vector2(0, len));
-  return new THREE.LatheGeometry(pts, 48);
+  return new THREE.LatheGeometry(pts, isMobile ? 28 : 48);
 }
 
 export default function LadderPullViewer({
@@ -178,6 +178,11 @@ export default function LadderPullViewer({
     const mount = mountRef.current;
     if (!mount) return;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     // Graceful bail-out if WebGL is unavailable rather than throwing.
     let renderer: THREE.WebGLRenderer;
     try {
@@ -187,7 +192,9 @@ export default function LadderPullViewer({
     }
 
     const disposables: { dispose: () => void }[] = [];
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2),
+    );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.94;
     renderer.domElement.style.width = "100%";
@@ -197,7 +204,7 @@ export default function LadderPullViewer({
     mount.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    const env = studioEnv(renderer);
+    const env = studioEnv(renderer, isMobile);
     scene.environment = env;
     scene.environmentIntensity = 0.95;
     disposables.push(env);
@@ -209,15 +216,25 @@ export default function LadderPullViewer({
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enablePan = false;
-    controls.autoRotate = true;
+    controls.autoRotate = !prefersReducedMotion;
     controls.autoRotateSpeed = 0.7;
     controls.minDistance = 0.25;
     controls.maxDistance = 12;
+    // Pinch-zoom on a small canvas fights page zoom; one-finger orbit instead.
+    controls.enableZoom = !isMobile;
+    controls.touches = {
+      ONE: THREE.TOUCH.ROTATE,
+      TWO: THREE.TOUCH.DOLLY_ROTATE,
+    };
+    // OrbitControls sets touch-action:none on connect; restore vertical page
+    // scrolling over the canvas.
+    renderer.domElement.style.touchAction = "pan-y";
 
     let idleTimer: ReturnType<typeof setTimeout> | undefined;
     const pause = () => {
       controls.autoRotate = false;
       clearTimeout(idleTimer);
+      if (prefersReducedMotion) return;
       idleTimer = setTimeout(() => {
         controls.autoRotate = true;
       }, 3000);
@@ -321,11 +338,11 @@ export default function LadderPullViewer({
       TUBE_R,
       TUBE_R,
       1,
-      56,
+      isMobile ? 32 : 56,
       1,
       true,
     );
-    const capGeo = capGeometry();
+    const capGeo = capGeometry(isMobile);
     disposables.push(barrelGeo, capGeo);
 
     for (const side of [1, -1]) {
@@ -350,19 +367,24 @@ export default function LadderPullViewer({
 
     const soFaceZ = GLASS_T / 2 + 0.0032; // standoff starts just outside the ring
     const soLen = TUBE_Z - TUBE_R - soFaceZ; // reaches the tube wall
-    const soGeo = standoffGeometry(soLen);
-    const screwGeo = new THREE.CylinderGeometry(0.0019, 0.0019, 0.0055, 16);
+    const soGeo = standoffGeometry(soLen, isMobile);
+    const screwGeo = new THREE.CylinderGeometry(
+      0.0019,
+      0.0019,
+      0.0055,
+      isMobile ? 10 : 16,
+    );
     const ringGeo = new THREE.CylinderGeometry(
       RING_R,
       RING_R,
       GLASS_T + 0.0064,
-      48,
+      isMobile ? 28 : 48,
     );
     const gasketGeo = new THREE.CylinderGeometry(
       RING_R + 0.0004,
       RING_R + 0.0004,
       0.0013,
-      48,
+      isMobile ? 28 : 48,
     );
     disposables.push(soGeo, screwGeo, ringGeo, gasketGeo);
 
@@ -511,9 +533,21 @@ export default function LadderPullViewer({
     );
     io.observe(mount);
 
+    // Stop drawing entirely while the tab is backgrounded.
+    let tabVisible = !document.hidden;
+    const onVisibility = () => {
+      tabVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const tmp = new THREE.Vector3();
+    let frame = 0;
     renderer.setAnimationLoop(() => {
-      if (!visible) return;
+      if (!visible || !tabVisible) return;
+      // ~30fps on mobile.
+      frame++;
+      if (isMobile && frame % 2 === 0) return;
+
 
       if (Math.abs(state.targetIn - state.lenIn) > 0.002) {
         state.lenIn += (state.targetIn - state.lenIn) * 0.14;
@@ -553,6 +587,7 @@ export default function LadderPullViewer({
       renderer.setAnimationLoop(null);
       io.disconnect();
       ro.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       renderer.domElement.removeEventListener("wheel", pause);
       controls.dispose();
       for (const d of disposables) d.dispose();

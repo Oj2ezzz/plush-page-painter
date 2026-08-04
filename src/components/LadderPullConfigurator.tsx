@@ -86,7 +86,7 @@ const LadderPullConfigurator = () => {
         onClick={() => setFinish(id)}
         aria-pressed={active}
         className={cn(
-          "flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-colors",
+          "flex min-h-[40px] items-center gap-2 rounded-full border px-3 py-2.5 text-xs transition-colors lg:min-h-0 lg:py-1.5",
           active
             ? "border-foreground/70 bg-foreground/5 text-foreground"
             : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
@@ -110,7 +110,7 @@ const LadderPullConfigurator = () => {
     <section
       ref={sectionRef}
       id="configurator"
-      className="w-full bg-background py-20"
+      className="w-full bg-background py-12 lg:py-20"
     >
       <div className="container mx-auto px-4">
         <div className="mb-10 max-w-2xl">
@@ -128,7 +128,7 @@ const LadderPullConfigurator = () => {
 
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
           {/* Viewport */}
-          <div className="relative min-h-[440px] overflow-hidden rounded-xl border border-border bg-muted/30 lg:min-h-[620px]">
+          <div className="relative h-[52vh] min-h-[320px] overflow-hidden rounded-xl border border-border bg-muted/30 lg:h-auto lg:min-h-[620px]">
             {inView ? (
               <Suspense fallback={<ViewerFallback />}>
                 <LadderPullViewer
@@ -147,7 +147,7 @@ const LadderPullConfigurator = () => {
 
           {/* Controls */}
           <aside className="flex flex-col gap-8 rounded-xl border border-border bg-card p-6">
-            <div>
+            <div className="sticky top-0 z-10 -mx-6 -mt-6 border-b border-border bg-card px-6 py-4 lg:static lg:mx-0 lg:mt-0 lg:border-b-0 lg:p-0">
               <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 Your configuration
               </p>
@@ -182,7 +182,7 @@ const LadderPullConfigurator = () => {
                       onClick={() => setUnit(u)}
                       aria-pressed={unit === u}
                       className={cn(
-                        "px-2 py-1 transition-colors",
+                        "min-h-[40px] px-3 py-2 transition-colors lg:min-h-0 lg:px-2 lg:py-1",
                         unit === u
                           ? "bg-foreground text-background"
                           : "text-muted-foreground hover:text-foreground",
@@ -205,6 +205,7 @@ const LadderPullConfigurator = () => {
                 step={1}
                 onValueChange={([v]) => setLengthIn(v)}
                 aria-label="Overall length in inches"
+                className="py-2 [&_[role=slider]]:h-6 [&_[role=slider]]:w-6 lg:[&_[role=slider]]:h-5 lg:[&_[role=slider]]:w-5"
               />
 
               <div className="mt-2 flex justify-between text-[11px] text-muted-foreground">
