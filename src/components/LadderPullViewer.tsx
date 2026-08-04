@@ -57,9 +57,9 @@ function brushTexture() {
 }
 
 /* ---------- studio environment (equirect canvas -> PMREM) ---------- */
-function studioEnv(renderer: THREE.WebGLRenderer) {
-  const w = 1024;
-  const h = 512;
+function studioEnv(renderer: THREE.WebGLRenderer, isMobile = false) {
+  const w = isMobile ? 512 : 1024;
+  const h = isMobile ? 256 : 512;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
