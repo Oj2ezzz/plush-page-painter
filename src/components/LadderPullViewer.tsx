@@ -335,11 +335,11 @@ export default function LadderPullViewer({
       TUBE_R,
       TUBE_R,
       1,
-      56,
+      isMobile ? 32 : 56,
       1,
       true,
     );
-    const capGeo = capGeometry();
+    const capGeo = capGeometry(isMobile);
     disposables.push(barrelGeo, capGeo);
 
     for (const side of [1, -1]) {
