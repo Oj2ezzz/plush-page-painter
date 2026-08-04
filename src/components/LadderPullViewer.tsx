@@ -584,6 +584,7 @@ export default function LadderPullViewer({
       renderer.setAnimationLoop(null);
       io.disconnect();
       ro.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       renderer.domElement.removeEventListener("wheel", pause);
       controls.dispose();
       for (const d of disposables) d.dispose();
