@@ -128,7 +128,7 @@ const LadderPullConfigurator = () => {
 
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
           {/* Viewport */}
-          <div className="relative min-h-[440px] overflow-hidden rounded-xl border border-border bg-muted/30 lg:min-h-[620px]">
+          <div className="relative h-[52vh] min-h-[320px] overflow-hidden rounded-xl border border-border bg-muted/30 lg:h-auto lg:min-h-[620px]">
             {inView ? (
               <Suspense fallback={<ViewerFallback />}>
                 <LadderPullViewer
