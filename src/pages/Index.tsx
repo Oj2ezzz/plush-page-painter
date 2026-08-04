@@ -28,7 +28,6 @@ const Index = () => {
         <FeatureProducts />
       </div>
       <div className="animate-fade-in [animation-delay:1s]">
-      <div className="animate-fade-in [animation-delay:1s]">
         <LadderPullConfigurator />
       </div>
       <div className="animate-fade-in [animation-delay:1.2s]">
