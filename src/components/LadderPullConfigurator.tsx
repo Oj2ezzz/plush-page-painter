@@ -33,7 +33,9 @@ const LadderPullConfigurator = () => {
     LADDER_PULL_SPEC.defaultLengthIn,
   );
   const [finish, setFinish] = useState<FinishId>("brushed");
+  const [doorOpen, setDoorOpen] = useState(false);
   const [unit, setUnit] = useState<Unit>("in");
+
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -134,6 +136,8 @@ const LadderPullConfigurator = () => {
                 <LadderPullViewer
                   lengthIn={lengthIn}
                   finish={finish}
+                  doorOpen={doorOpen}
+
                   className="absolute inset-0 h-full w-full"
                 />
               </Suspense>
@@ -170,6 +174,31 @@ const LadderPullConfigurator = () => {
             </div>
 
             <div>
+              <p className="mb-3 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                Door
+              </p>
+              <div className="flex overflow-hidden rounded-md border border-border text-xs">
+                {([false, true] as boolean[]).map((open) => (
+                  <button
+                    key={String(open)}
+                    type="button"
+                    onClick={() => setDoorOpen(open)}
+                    aria-pressed={doorOpen === open}
+                    className={cn(
+                      "min-h-[40px] flex-1 px-3 py-2 transition-colors lg:min-h-0 lg:py-1.5",
+                      doorOpen === open
+                        ? "bg-foreground text-background"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {open ? "Open" : "Closed"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+
               <div className="mb-3 flex items-center justify-between">
                 <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                   Overall length

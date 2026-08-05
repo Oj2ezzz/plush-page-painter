@@ -18,14 +18,26 @@ const FILLET = 0.0024; // radiused edge on the flat caps
 const SO_R = 0.0198; // standoff body radius at the glass
 const RING_R = 0.0203; // polished centre ring
 
+/* ---------- door ---------- */
+const DOOR_W = 36 * IN; // standard commercial glass door leaf
+const PULL_FROM_EDGE = 3 * IN; // pull centreline in from the leading edge
+const PULL_X = DOOR_W / 2 - PULL_FROM_EDGE; // door is centred on the origin
+const HINGE_X = -DOOR_W / 2;
+const PATCH_W = 6.5 * IN;
+const PATCH_H = 4.5 * IN;
+const PATCH_D = GLASS_T + 1.1 * IN;
+const OPEN_ANGLE = -THREE.MathUtils.degToRad(52);
+
 interface ViewerApi {
   setLength: (inches: number) => void;
   setFinish: (id: FinishId) => void;
+  setDoorOpen: (open: boolean) => void;
 }
 
 interface LadderPullViewerProps {
   lengthIn: number;
   finish: FinishId;
+  doorOpen?: boolean;
   className?: string;
 }
 
@@ -166,13 +178,14 @@ function standoffGeometry(len: number, isMobile = false) {
 export default function LadderPullViewer({
   lengthIn,
   finish,
+  doorOpen = false,
   className,
 }: LadderPullViewerProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const apiRef = useRef<ViewerApi | null>(null);
   // Captured once so the scene builds with the correct starting configuration
   // without re-running setup when props change.
-  const initialRef = useRef({ lengthIn, finish });
+  const initialRef = useRef({ lengthIn, finish, doorOpen });
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -190,6 +203,9 @@ export default function LadderPullViewer({
     } catch {
       return;
     }
+
+    // Real refractive glass is a second render pass — desktop only.
+    const useTransmission = !isMobile;
 
     const disposables: { dispose: () => void }[] = [];
     renderer.setPixelRatio(
@@ -219,8 +235,7 @@ export default function LadderPullViewer({
     controls.autoRotate = !prefersReducedMotion;
     controls.autoRotateSpeed = 0.7;
     controls.minDistance = 0.25;
-    controls.maxDistance = 12;
-    // touch-action:pan-y below keeps a two-finger pinch from zooming the page.
+    controls.maxDistance = 30;
     controls.enableZoom = true;
     controls.zoomSpeed = 0.6;
     controls.touches = {
@@ -255,20 +270,6 @@ export default function LadderPullViewer({
     rim.position.set(0.6, 1.4, -3.0);
     scene.add(rim);
 
-    const shadowTex = shadowTexture();
-    const groundGeo = new THREE.PlaneGeometry(1, 1);
-    const groundMat = new THREE.MeshBasicMaterial({
-      map: shadowTex,
-      transparent: true,
-      depthWrite: false,
-      opacity: 0.9,
-    });
-    const ground = new THREE.Mesh(groundGeo, groundMat);
-    ground.rotation.x = -Math.PI / 2;
-    ground.scale.set(0.3, 0.62, 1);
-    scene.add(ground);
-    disposables.push(shadowTex, groundGeo, groundMat);
-
     /* ---------- materials ---------- */
     const grain = brushTexture();
     const tubeMat = new THREE.MeshPhysicalMaterial({
@@ -299,24 +300,41 @@ export default function LadderPullViewer({
       metalness: 0.2,
       roughness: 0.7,
     });
+    // Door hardware stays satin stainless regardless of the pull finish.
+    const hwMat = new THREE.MeshPhysicalMaterial({
+      name: "doorHardware",
+      color: 0xc8ccce,
+      metalness: 0.95,
+      roughness: 0.22,
+      envMapIntensity: 1.15,
+    });
+
     const glassMat = new THREE.MeshPhysicalMaterial({
       name: "glass",
-      color: 0xd7ece2,
+      color: 0xffffff,
       metalness: 0,
-      roughness: 0.03,
-      transparent: true,
-      opacity: 0.16,
+      roughness: 0.02,
+      ior: 1.52,
+      thickness: GLASS_T * 8,
+      transmission: useTransmission ? 1 : 0,
+      attenuationColor: new THREE.Color(0x8fd0b4),
+      attenuationDistance: 0.9,
+      specularIntensity: 1,
       side: THREE.DoubleSide,
-      envMapIntensity: 0.6,
-      depthWrite: false,
+      envMapIntensity: 1.0,
+      // Non-transmissive fallback needs classic alpha blending.
+      transparent: !useTransmission,
+      opacity: useTransmission ? 1 : 0.17,
+      depthWrite: useTransmission,
     });
     const glassEdgeMat = new THREE.MeshPhysicalMaterial({
       name: "glassEdge",
-      color: 0x7fb79c,
+      color: 0x5aa384,
       metalness: 0,
-      roughness: 0.12,
+      roughness: 0.1,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.72,
+      envMapIntensity: 0.9,
     });
     disposables.push(
       grain,
@@ -324,14 +342,98 @@ export default function LadderPullViewer({
       soMat,
       ringMat,
       darkMat,
+      hwMat,
       glassMat,
       glassEdgeMat,
     );
 
-    /* ---------- geometry ---------- */
-    const model = new THREE.Group();
-    model.name = "ladderPull";
-    scene.add(model);
+    /* ---------- door assembly ----------
+       `hinge` sits on the hinge stile and carries the swing rotation.
+       `door` counter-offsets so its children use door-centred coordinates. */
+    const hinge = new THREE.Group();
+    hinge.name = "doorHinge";
+    hinge.position.x = HINGE_X;
+    scene.add(hinge);
+
+    const door = new THREE.Group();
+    door.name = "doorLeaf";
+    door.position.x = -HINGE_X;
+    hinge.add(door);
+
+    const shadowTex = shadowTexture();
+    const groundGeo = new THREE.PlaneGeometry(1, 1);
+    const groundMat = new THREE.MeshBasicMaterial({
+      map: shadowTex,
+      transparent: true,
+      depthWrite: false,
+      opacity: 0.85,
+    });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.name = "contactShadow";
+    ground.rotation.x = -Math.PI / 2;
+    ground.scale.set(DOOR_W * 1.15, 0.34, 1);
+    door.add(ground);
+    disposables.push(shadowTex, groundGeo, groundMat);
+
+    // Glass leaf — unit height, scaled to the door height each frame.
+    const glassGeo = new THREE.BoxGeometry(DOOR_W, 1, GLASS_T);
+    const glass = new THREE.Mesh(glassGeo, glassMat);
+    glass.name = "glassLeaf";
+    glass.visible = LADDER_PULL_SPEC.showGlass;
+    door.add(glass);
+
+    // Polished edges: verticals scale with height, horizontals stay door-width.
+    const vEdgeGeo = new THREE.BoxGeometry(0.004, 1, GLASS_T * 1.02);
+    const hEdgeGeo = new THREE.BoxGeometry(DOOR_W, 0.004, GLASS_T * 1.02);
+    const vEdges: THREE.Mesh[] = [];
+    const hEdges: { mesh: THREE.Mesh; end: number }[] = [];
+    for (const s of [1, -1]) {
+      const e = new THREE.Mesh(vEdgeGeo, glassEdgeMat);
+      e.name = s > 0 ? "glassEdgeLeading" : "glassEdgeHinge";
+      e.position.x = s * (DOOR_W / 2);
+      e.visible = LADDER_PULL_SPEC.showGlass;
+      door.add(e);
+      vEdges.push(e);
+    }
+    for (const end of [1, -1]) {
+      const e = new THREE.Mesh(hEdgeGeo, glassEdgeMat);
+      e.name = end > 0 ? "glassEdgeTop" : "glassEdgeBottom";
+      e.visible = LADDER_PULL_SPEC.showGlass;
+      door.add(e);
+      hEdges.push({ mesh: e, end });
+    }
+    disposables.push(glassGeo, vEdgeGeo, hEdgeGeo);
+
+    // Patch fittings + pivot pins on the hinge stile.
+    const patchGeo = new THREE.BoxGeometry(PATCH_W, PATCH_H, PATCH_D);
+    const pinGeo = new THREE.CylinderGeometry(
+      0.5 * IN,
+      0.5 * IN,
+      0.9 * IN,
+      isMobile ? 12 : 24,
+    );
+    const patches: { mesh: THREE.Mesh; end: number }[] = [];
+    const pins: { mesh: THREE.Mesh; end: number }[] = [];
+    for (const end of [1, -1]) {
+      const p = new THREE.Mesh(patchGeo, hwMat);
+      p.name = end > 0 ? "patchFittingTop" : "patchFittingBottom";
+      p.position.x = -DOOR_W / 2 + PATCH_W / 2;
+      door.add(p);
+      patches.push({ mesh: p, end });
+
+      const pin = new THREE.Mesh(pinGeo, hwMat);
+      pin.name = end > 0 ? "pivotPinTop" : "pivotPinBottom";
+      pin.position.x = -DOOR_W / 2 + 2.4 * IN;
+      door.add(pin);
+      pins.push({ mesh: pin, end });
+    }
+    disposables.push(patchGeo, pinGeo);
+
+    /* ---------- the pull ---------- */
+    const pull = new THREE.Group();
+    pull.name = "ladderPull";
+    pull.position.x = PULL_X;
+    door.add(pull);
 
     const tubes: THREE.Mesh[] = [];
     const caps: { mesh: THREE.Mesh; end: number }[] = [];
@@ -363,7 +465,7 @@ export default function LadderPullViewer({
         g.add(cap);
         caps.push({ mesh: cap, end });
       }
-      model.add(g);
+      pull.add(g);
     }
 
     const soFaceZ = GLASS_T / 2 + 0.0032; // standoff starts just outside the ring
@@ -426,28 +528,9 @@ export default function LadderPullViewer({
         asm.add(gasket);
       }
 
-      model.add(asm);
+      pull.add(asm);
       standoffs.push({ group: asm, level });
     }
-
-    const glassGeo = new THREE.BoxGeometry(0.34, 1, GLASS_T * 0.999);
-    const glass = new THREE.Mesh(glassGeo, glassMat);
-    glass.name = "glassPanel";
-    glass.visible = LADDER_PULL_SPEC.showGlass;
-    model.add(glass);
-
-    const glassEdgeGeo = new THREE.BoxGeometry(0.0016, 1, GLASS_T);
-    const glassEdges = new THREE.Group();
-    glassEdges.name = "glassEdges";
-    glassEdges.visible = LADDER_PULL_SPEC.showGlass;
-    for (const s of [1, -1]) {
-      const e = new THREE.Mesh(glassEdgeGeo, glassEdgeMat);
-      e.name = s > 0 ? "glassEdgeRight" : "glassEdgeLeft";
-      e.position.x = s * 0.17;
-      glassEdges.add(e);
-    }
-    model.add(glassEdges);
-    disposables.push(glassGeo, glassEdgeGeo);
 
     /* ---------- state ---------- */
     const start = initialRef.current;
@@ -463,6 +546,8 @@ export default function LadderPullViewer({
       },
       targetDist: 2.2,
       frameDist: 2.2,
+      doorAngle: start.doorOpen ? OPEN_ANGLE : 0,
+      targetAngle: start.doorOpen ? OPEN_ANGLE : 0,
     };
 
     // User zoom as a multiple of the auto-framing distance.
@@ -470,6 +555,7 @@ export default function LadderPullViewer({
     let reframing = false;
 
     function applyLength(L: number) {
+      // Pull tubes: only the barrel length changes, never the diameter.
       const mid = Math.max(L - 2 * FILLET, 0.01);
       for (const t of tubes) t.scale.y = mid;
       for (const c of caps) c.mesh.position.y = c.end * (L / 2 - FILLET);
@@ -477,20 +563,32 @@ export default function LadderPullViewer({
       const insetM = standoffInsetIn(L / IN) * IN;
       for (const s of standoffs) s.group.position.y = s.level * (L / 2 - insetM);
 
-      // Framed vertical extent, compressed rather than proportional.
-      const framedIn = Math.min(100, Math.max(40, (L / IN) * 1.25));
+      // Door grows only if the pull would not fit an 84" leaf.
+      const doorHIn = Math.max(84, L / IN + 12);
+      const doorH = doorHIn * IN;
+      const halfH = doorH / 2;
 
-      // Glass door is a fixed 36" wide reference, always overflowing vertically.
-      const glassW = 36 * IN;
-      const glassH = framedIn * 1.6 * IN;
-      glass.scale.set(glassW / 0.34, glassH, 1);
-      glassEdges.scale.set(glassW / 0.34, glassH, 1);
-      ground.position.y = -L / 2 - 0.004;
+      glass.scale.y = doorH;
+      for (const e of vEdges) e.scale.y = doorH;
+      for (const e of hEdges) e.mesh.position.y = e.end * halfH;
 
+      for (const p of patches) {
+        p.mesh.position.y = p.end * (halfH - PATCH_H / 2 - 0.6 * IN);
+      }
+      for (const p of pins) {
+        p.mesh.position.y = p.end * (halfH + 0.35 * IN);
+      }
+
+      // Pull sits at grip height: centred on the leaf, nudged down slightly.
+      pull.position.y = -2 * IN;
+      ground.position.y = -halfH - 0.004;
+
+      // Frame the whole door, with headroom for the swing.
+      const framedIn = doorHIn * 1.14;
       state.frameDist =
-        (framedIn * IN * 0.5) / Math.tan((camera.fov * Math.PI) / 360) + 0.25;
+        (framedIn * IN * 0.5) / Math.tan((camera.fov * Math.PI) / 360) + 0.3;
       state.targetDist = state.frameDist * zoomRatio;
-      controls.minDistance = state.frameDist * 0.25;
+      controls.minDistance = state.frameDist * 0.12;
       controls.maxDistance = state.frameDist * 4;
     }
 
@@ -515,6 +613,10 @@ export default function LadderPullViewer({
         pause();
       },
       setFinish,
+      setDoorOpen: (open) => {
+        state.targetAngle = open ? OPEN_ANGLE : 0;
+        pause();
+      },
     };
 
     /* ---------- sizing ---------- */
@@ -531,8 +633,9 @@ export default function LadderPullViewer({
 
     applyLength(state.lenIn * IN);
     setFinish(start.finish);
+    hinge.rotation.y = state.doorAngle;
     camera.position
-      .set(0.9, 0.25, 1)
+      .set(0.9, 0.22, 1)
       .normalize()
       .multiplyScalar(state.targetDist);
 
@@ -561,10 +664,15 @@ export default function LadderPullViewer({
       frame++;
       if (isMobile && frame % 2 === 0) return;
 
-
       if (Math.abs(state.targetIn - state.lenIn) > 0.002) {
         state.lenIn += (state.targetIn - state.lenIn) * 0.14;
         applyLength(state.lenIn * IN);
+      }
+
+      // Door swing.
+      if (Math.abs(state.targetAngle - state.doorAngle) > 0.0005) {
+        state.doorAngle += (state.targetAngle - state.doorAngle) * 0.11;
+        hinge.rotation.y = state.doorAngle;
       }
 
       // Only ease distance while a length change settles, so user zoom sticks.
@@ -583,21 +691,19 @@ export default function LadderPullViewer({
         }
       }
 
-
       for (const m of [tubeMat, soMat]) {
         m.color.lerp(state.target.color, 0.12);
         m.metalness += (state.target.metalness - m.metalness) * 0.12;
         m.roughness +=
-          (state.target.roughness -
-            (m === soMat ? 0.04 : 0) -
-            m.roughness) *
+          (state.target.roughness - (m === soMat ? 0.04 : 0) - m.roughness) *
           0.12;
         m.envMapIntensity += (state.target.env - m.envMapIntensity) * 0.12;
       }
 
       controls.update();
       if (!reframing && state.frameDist > 0) {
-        zoomRatio = camera.position.distanceTo(controls.target) / state.frameDist;
+        zoomRatio =
+          camera.position.distanceTo(controls.target) / state.frameDist;
       }
       renderer.render(scene, camera);
     });
@@ -626,6 +732,10 @@ export default function LadderPullViewer({
   useEffect(() => {
     apiRef.current?.setFinish(finish);
   }, [finish]);
+
+  useEffect(() => {
+    apiRef.current?.setDoorOpen(doorOpen);
+  }, [doorOpen]);
 
   return <div ref={mountRef} className={className} />;
 }
