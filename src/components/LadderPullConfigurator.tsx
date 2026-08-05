@@ -218,7 +218,10 @@ const LadderPullConfigurator = () => {
               <div className="flex justify-between">
                 <dt className="text-muted-foreground">Tube diameter</dt>
                 <dd className="font-medium">
-                  {formatLength(LADDER_PULL_SPEC.tubeOuterDiameterIn, unit)} OD
+                  {unit === "in"
+                    ? '1 5/16"'
+                    : `${Math.round(LADDER_PULL_SPEC.tubeOuterDiameterIn * 25.4)} mm`}{" "}
+                  OD
                 </dd>
               </div>
               <div className="flex justify-between">
