@@ -462,7 +462,12 @@ export default function LadderPullViewer({
         env: startFinish.env,
       },
       targetDist: 2.2,
+      frameDist: 2.2,
     };
+
+    // User zoom as a multiple of the auto-framing distance.
+    let zoomRatio = 1;
+    let reframing = false;
 
     function applyLength(L: number) {
       const mid = Math.max(L - 2 * FILLET, 0.01);
@@ -472,15 +477,21 @@ export default function LadderPullViewer({
       const insetM = standoffInsetIn(L / IN) * IN;
       for (const s of standoffs) s.group.position.y = s.level * (L / 2 - insetM);
 
-      const gw = Math.min(0.34, Math.max(0.16, L * 0.42));
-      glass.scale.set(gw / 0.34, L * 0.88, 1);
-      glassEdges.scale.set(gw / 0.34, L * 0.88, 1);
+      // Framed vertical extent, compressed rather than proportional.
+      const framedIn = Math.min(100, Math.max(40, (L / IN) * 1.25));
+
+      // Glass door is a fixed 36" wide reference, always overflowing vertically.
+      const glassW = 36 * IN;
+      const glassH = framedIn * 1.6 * IN;
+      glass.scale.set(glassW / 0.34, glassH, 1);
+      glassEdges.scale.set(glassW / 0.34, glassH, 1);
       ground.position.y = -L / 2 - 0.004;
 
-      state.targetDist =
-        (L * 0.56) / Math.tan((camera.fov * Math.PI) / 360) + 0.22;
-      controls.minDistance = state.targetDist * 0.35;
-      controls.maxDistance = state.targetDist * 3;
+      state.frameDist =
+        (framedIn * IN * 0.5) / Math.tan((camera.fov * Math.PI) / 360) + 0.25;
+      state.targetDist = state.frameDist * zoomRatio;
+      controls.minDistance = state.frameDist * 0.25;
+      controls.maxDistance = state.frameDist * 4;
     }
 
     function setFinish(id: FinishId) {
