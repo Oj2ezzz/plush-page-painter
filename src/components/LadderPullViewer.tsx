@@ -204,6 +204,14 @@ export default function LadderPullViewer({
       return;
     }
 
+    // Half-res transmission buffer: cheaper, and softens residual refraction edges.
+    if ("transmissionResolutionScale" in renderer) {
+      (renderer as unknown as { transmissionResolutionScale: number })
+        .transmissionResolutionScale = 0.5;
+    }
+
+
+
     // Real refractive glass is a second render pass — desktop only.
     const useTransmission = !isMobile;
 
@@ -313,14 +321,15 @@ export default function LadderPullViewer({
       name: "glass",
       color: 0xffffff,
       metalness: 0,
-      roughness: 0.02,
-      ior: 1.52,
-      thickness: GLASS_T * 8,
+      roughness: 0.04,
+      ior: 1.48,
+      thickness: GLASS_T,
       transmission: useTransmission ? 1 : 0,
       attenuationColor: new THREE.Color(0x8fd0b4),
-      attenuationDistance: 0.9,
+      attenuationDistance: 3.0,
       specularIntensity: 1,
-      side: THREE.DoubleSide,
+      side: THREE.FrontSide,
+
       envMapIntensity: 1.0,
       // Non-transmissive fallback needs classic alpha blending.
       transparent: !useTransmission,
