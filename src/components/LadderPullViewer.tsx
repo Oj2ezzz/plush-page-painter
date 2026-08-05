@@ -511,6 +511,7 @@ export default function LadderPullViewer({
     apiRef.current = {
       setLength: (inches) => {
         state.targetIn = inches;
+        reframing = true;
         pause();
       },
       setFinish,
