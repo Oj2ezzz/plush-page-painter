@@ -33,7 +33,9 @@ const LadderPullConfigurator = () => {
     LADDER_PULL_SPEC.defaultLengthIn,
   );
   const [finish, setFinish] = useState<FinishId>("brushed");
+  const [doorOpen, setDoorOpen] = useState(false);
   const [unit, setUnit] = useState<Unit>("in");
+
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
