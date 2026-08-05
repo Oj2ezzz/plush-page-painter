@@ -567,17 +567,22 @@ export default function LadderPullViewer({
         applyLength(state.lenIn * IN);
       }
 
-      // Camera distance easing that preserves the user's orbit angle.
+      // Only ease distance while a length change settles, so user zoom sticks.
       const cur = camera.position.distanceTo(controls.target);
-      if (Math.abs(state.targetDist - cur) > 0.002) {
-        const next = cur + (state.targetDist - cur) * 0.07;
-        tmp
-          .copy(camera.position)
-          .sub(controls.target)
-          .normalize()
-          .multiplyScalar(next);
-        camera.position.copy(controls.target).add(tmp);
+      if (reframing) {
+        if (Math.abs(state.targetDist - cur) > 0.002) {
+          const next = cur + (state.targetDist - cur) * 0.07;
+          tmp
+            .copy(camera.position)
+            .sub(controls.target)
+            .normalize()
+            .multiplyScalar(next);
+          camera.position.copy(controls.target).add(tmp);
+        } else {
+          reframing = false;
+        }
       }
+
 
       for (const m of [tubeMat, soMat]) {
         m.color.lerp(state.target.color, 0.12);
