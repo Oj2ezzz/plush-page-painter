@@ -204,6 +204,14 @@ export default function LadderPullViewer({
       return;
     }
 
+    // Half-res transmission buffer: cheaper, and softens residual refraction edges.
+    if ("transmissionResolutionScale" in renderer) {
+      (renderer as unknown as { transmissionResolutionScale: number })
+        .transmissionResolutionScale = 0.5;
+    }
+
+
+
     // Real refractive glass is a second render pass — desktop only.
     const useTransmission = !isMobile;
 
