@@ -596,6 +596,9 @@ export default function LadderPullViewer({
       }
 
       controls.update();
+      if (!reframing && state.frameDist > 0) {
+        zoomRatio = camera.position.distanceTo(controls.target) / state.frameDist;
+      }
       renderer.render(scene, camera);
     });
 
