@@ -7,7 +7,7 @@
 
 export const LADDER_PULL_SPEC = {
   /** Outer diameter of the tubing. */
-  tubeOuterDiameterIn: 1.25,
+  tubeOuterDiameterIn: 1.3125,
   /** Thickness of the glass door rendered between the two tubes. */
   glassThicknessIn: 0.5,
   /** Distance from the glass face to the tube centreline. */

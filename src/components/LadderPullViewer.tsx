@@ -209,7 +209,7 @@ export default function LadderPullViewer({
     scene.environmentIntensity = 0.95;
     disposables.push(env);
 
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
+    const camera = new THREE.PerspectiveCamera(24, 1, 0.01, 100);
     camera.position.set(1.1, 0.35, 1.9);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -220,8 +220,9 @@ export default function LadderPullViewer({
     controls.autoRotateSpeed = 0.7;
     controls.minDistance = 0.25;
     controls.maxDistance = 12;
-    // Pinch-zoom on a small canvas fights page zoom; one-finger orbit instead.
-    controls.enableZoom = !isMobile;
+    // touch-action:pan-y below keeps a two-finger pinch from zooming the page.
+    controls.enableZoom = true;
+    controls.zoomSpeed = 0.6;
     controls.touches = {
       ONE: THREE.TOUCH.ROTATE,
       TWO: THREE.TOUCH.DOLLY_ROTATE,
@@ -461,7 +462,12 @@ export default function LadderPullViewer({
         env: startFinish.env,
       },
       targetDist: 2.2,
+      frameDist: 2.2,
     };
+
+    // User zoom as a multiple of the auto-framing distance.
+    let zoomRatio = 1;
+    let reframing = false;
 
     function applyLength(L: number) {
       const mid = Math.max(L - 2 * FILLET, 0.01);
@@ -471,15 +477,21 @@ export default function LadderPullViewer({
       const insetM = standoffInsetIn(L / IN) * IN;
       for (const s of standoffs) s.group.position.y = s.level * (L / 2 - insetM);
 
-      const gw = Math.min(0.34, Math.max(0.16, L * 0.42));
-      glass.scale.set(gw / 0.34, L * 0.88, 1);
-      glassEdges.scale.set(gw / 0.34, L * 0.88, 1);
+      // Framed vertical extent, compressed rather than proportional.
+      const framedIn = Math.min(100, Math.max(40, (L / IN) * 1.25));
+
+      // Glass door is a fixed 36" wide reference, always overflowing vertically.
+      const glassW = 36 * IN;
+      const glassH = framedIn * 1.6 * IN;
+      glass.scale.set(glassW / 0.34, glassH, 1);
+      glassEdges.scale.set(glassW / 0.34, glassH, 1);
       ground.position.y = -L / 2 - 0.004;
 
-      state.targetDist =
-        (L * 0.56) / Math.tan((camera.fov * Math.PI) / 360) + 0.22;
-      controls.minDistance = state.targetDist * 0.35;
-      controls.maxDistance = state.targetDist * 3;
+      state.frameDist =
+        (framedIn * IN * 0.5) / Math.tan((camera.fov * Math.PI) / 360) + 0.25;
+      state.targetDist = state.frameDist * zoomRatio;
+      controls.minDistance = state.frameDist * 0.25;
+      controls.maxDistance = state.frameDist * 4;
     }
 
     function setFinish(id: FinishId) {
@@ -499,6 +511,7 @@ export default function LadderPullViewer({
     apiRef.current = {
       setLength: (inches) => {
         state.targetIn = inches;
+        reframing = true;
         pause();
       },
       setFinish,
@@ -554,17 +567,22 @@ export default function LadderPullViewer({
         applyLength(state.lenIn * IN);
       }
 
-      // Camera distance easing that preserves the user's orbit angle.
+      // Only ease distance while a length change settles, so user zoom sticks.
       const cur = camera.position.distanceTo(controls.target);
-      if (Math.abs(state.targetDist - cur) > 0.002) {
-        const next = cur + (state.targetDist - cur) * 0.07;
-        tmp
-          .copy(camera.position)
-          .sub(controls.target)
-          .normalize()
-          .multiplyScalar(next);
-        camera.position.copy(controls.target).add(tmp);
+      if (reframing) {
+        if (Math.abs(state.targetDist - cur) > 0.002) {
+          const next = cur + (state.targetDist - cur) * 0.07;
+          tmp
+            .copy(camera.position)
+            .sub(controls.target)
+            .normalize()
+            .multiplyScalar(next);
+          camera.position.copy(controls.target).add(tmp);
+        } else {
+          reframing = false;
+        }
       }
+
 
       for (const m of [tubeMat, soMat]) {
         m.color.lerp(state.target.color, 0.12);
@@ -578,6 +596,9 @@ export default function LadderPullViewer({
       }
 
       controls.update();
+      if (!reframing && state.frameDist > 0) {
+        zoomRatio = camera.position.distanceTo(controls.target) / state.frameDist;
+      }
       renderer.render(scene, camera);
     });
 
