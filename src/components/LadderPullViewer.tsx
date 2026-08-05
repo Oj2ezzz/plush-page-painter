@@ -209,7 +209,7 @@ export default function LadderPullViewer({
     scene.environmentIntensity = 0.95;
     disposables.push(env);
 
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
+    const camera = new THREE.PerspectiveCamera(24, 1, 0.01, 100);
     camera.position.set(1.1, 0.35, 1.9);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -220,8 +220,9 @@ export default function LadderPullViewer({
     controls.autoRotateSpeed = 0.7;
     controls.minDistance = 0.25;
     controls.maxDistance = 12;
-    // Pinch-zoom on a small canvas fights page zoom; one-finger orbit instead.
-    controls.enableZoom = !isMobile;
+    // touch-action:pan-y below keeps a two-finger pinch from zooming the page.
+    controls.enableZoom = true;
+    controls.zoomSpeed = 0.6;
     controls.touches = {
       ONE: THREE.TOUCH.ROTATE,
       TWO: THREE.TOUCH.DOLLY_ROTATE,
